@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PedalinoRDM - Gmod Server</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            margin: 20px 0;
+        }
+
+        .buttons {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .join-server {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .discord {
+            background-color: #5865F2;
+            color: white;
+        }
+
+        .admin-list {
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 500px;
+        }
+
+        .admin-list h2 {
+            color: #4CAF50;
+        }
+
+        .admin-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .admin-list li {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #333333;
+            border-radius: 5px;
+        }
+
+        .admin-list a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .admin-list a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="steam://connect/SERVER_IP:PORT"> <!-- Tutaj wpisz prawdziwy IP i port serwera -->
+                <img src="Logo.gif" alt="PedalinoRDM Logo" class="logo">
+            </a>
+        </header>
+
+        <div class="buttons">
+            <a href="steam://connect/SERVER_IP:PORT" class="btn join-server">Dołącz do serwera</a>
+            <a href="https://discord.gg/LINK_DO_DISCORDA" class="btn discord"> <!-- Tutaj wstaw prawdziwy link Discord -->
+                <i class="fab fa-discord"></i> Dołącz na Discord
+            </a>
+        </div>
+
+        <div class="admin-list">
+            <h2>Administratorzy serwera</h2>
+            <ul>
+                <li>
+                    <a href="https://steamcommunity.com/id/Machaxx21212/" target="_blank">
+                        Macha - Właściciel
+                    </a>
+                </li>
+                <li>
+                    <a href="https://steamcommunity.com/profiles/76561199402720515" target="_blank">
+                        Noxy - Naczelny cfel serwera
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
