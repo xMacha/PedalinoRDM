@@ -39,9 +39,16 @@
       background-color: #0af;
       color: #000;
     }
+    main section {
+      display: none;
+      padding: 20px;
+      text-align: center; /* centrowanie nagłówków i treści */
+    }
+    main section.active {
+      display: block;
+    }
     .buttons {
-      text-align: center;
-      margin: 20px 0;
+      margin-bottom: 20px;
     }
     .btn {
       display: inline-block;
@@ -67,13 +74,6 @@
     .btn.discord:hover {
       box-shadow: 0 0 8px #7289da;
     }
-    section {
-      display: none;
-      padding: 20px;
-    }
-    section.active {
-      display: block;
-    }
     .admin-list {
       display: flex;
       flex-wrap: wrap;
@@ -98,13 +98,6 @@
       color: #0af;
       text-decoration: none;
     }
-    #rules {
-      background-color: #222;
-      padding: 15px;
-      text-align: center;
-      font-size: 1.2em;
-      border-radius: 8px;
-    }
     @media (max-width: 600px) {
       .tabs { flex-direction: column; }
       .btn { width: 100%; margin: 10px 0; }
@@ -118,47 +111,46 @@
 
   <!-- zakładki -->
   <div class="tabs">
-    <button class="tab-btn active" data-tab="home">Strona główna</button>
-    <button class="tab-btn" data-tab="rules">Regulamin</button>
+    <button class="tab-btn active" data-tab="home"></button>
+    <button class="tab-btn" data-tab="rules"></button>
   </div>
 
-  <!-- przyciski dołączenia -->
-  <div class="buttons">
-    <a class="btn server-btn" href="steam://connect/pl1.mathost.eu:23196">Dołącz do serwera</a>
-    <a class="btn discord" href="https://discord.gg/2fhQAfkk">Dołącz do Discorda</a>
-  </div>
-
-  <!-- panele treści -->
-  <section id="home" class="active">
-    <h2>Strona główna</h2>
-    <h3>Administratorzy</h3>
-    <div class="admin-list">
-      <div class="admin">
-        <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/2603600/f8a845787f2b56752f806762822cb918ff18935b.gif" alt="Avatar Macha">
-        <p><a href="https://steamcommunity.com/id/Machaxx21212/"><strong>Macha</strong></a><br><em>Właściciel</em></p>
+  <main>
+    <section id="home" class="active">
+      <div class="buttons">
+        <a class="btn server-btn" href="steam://connect/pl1.mathost.eu:23196">Dołącz na serwer</a>
+        <a class="btn discord" href="https://discord.gg/2fhQAfkk" target="_blank">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Discord_logo.svg" alt="Discord" style="width:16px;height:16px;margin-right:8px;vertical-align:middle;">
+          Dołącz na Discord
+        </a>
       </div>
-      <div class="admin">
-        <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/493520/8bdddcd5524d510b01a759feaafe2e7761b1efc8.gif" alt="Avatar Noxy">
-        <p><a href="https://steamcommunity.com/profiles/76561199402720515"><strong>Noxy</strong></a><br><em>Naczelny cfel serwera</em></p>
+      <h3>Administratorzy</h3>
+      <div class="admin-list">
+        <div class="admin">
+          <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/2603600/f8a845787f2b56752f806762822cb918ff18935b.gif" alt="Avatar Macha">
+          <p><a href="https://steamcommunity.com/id/Machaxx21212/"><strong>Macha</strong></a><br><em>Właściciel</em></p>
+        </div>
+        <div class="admin">
+          <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/493520/8bdddcd5524d510b01a759feaafe2e7761b1efc8.gif" alt="Avatar Noxy">
+          <p><a href="https://steamcommunity.com/profiles/76561199402720515"><strong>Noxy</strong></a><br><em>Naczelny cfel serwera</em></p>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="rules">
-    <h2>Regulamin</h2>
-    <p>Chyba cię pojebało kolego</p>
-  </section>
+    <section id="rules">
+      <p>Chyba cię pojebało kolego</p>
+    </section>
+  </main>
 
-  <!-- skrypt obsługi zakładek -->
   <script>
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
-        document.getElementById(btn.dataset.tab).classList.add('active');
-      });
-    });
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('main section');
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    }));
   </script>
 </body>
 </html>
