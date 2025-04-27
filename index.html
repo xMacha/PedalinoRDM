@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PedalinoRDM - Gmod Server</title>
+    <link rel="icon" href="RDM.gif" type="image/gif">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
@@ -107,6 +108,7 @@
             height: 100px;
             border-radius: 50%;
             margin-bottom: 15px;
+            border: 3px solid #4CAF50;
         }
 
         .steam-link {
@@ -118,6 +120,47 @@
 
         .steam-link:hover {
             text-decoration: underline;
+        }
+
+        #gameContainer {
+            margin: 20px auto;
+            position: relative;
+        }
+
+        #pongCanvas {
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            background-color: #000;
+        }
+
+        .score {
+            position: absolute;
+            top: 20px;
+            color: #4CAF50;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        #leftScore {
+            left: 45%;
+        }
+
+        #rightScore {
+            right: 45%;
+        }
+
+        .regulamin-content {
+            background-color: #2a2a2a;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 20px auto;
+            border: 2px solid #ff4444;
+            text-align: center;
+            font-size: 24px;
+            color: #ff4444;
+            text-transform: uppercase;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -132,6 +175,7 @@
         <div class="nav-tabs">
             <button class="tab-button active" onclick="openTab(event, 'home')">Strona Główna</button>
             <button class="tab-button" onclick="openTab(event, 'admins')">Administratorzy</button>
+            <button class="tab-button" onclick="openTab(event, 'regulamin')">Regulamin</button>
         </div>
 
         <div id="home" class="tab-content active">
@@ -141,12 +185,20 @@
                     <i class="fab fa-discord"></i> Dołącz na Discord
                 </a>
             </div>
+
+            <div id="gameContainer">
+                <div id="leftScore" class="score">0</div>
+                <div id="rightScore" class="score">0</div>
+                <canvas id="pongCanvas" width="800" height="400"></canvas>
+            </div>
         </div>
 
         <div id="admins" class="tab-content">
             <div class="admin-grid">
                 <div class="admin-card">
-                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/2603600/f8a845787f2b56752f806762822cb918ff18935b.gif" alt="Macha" class="admin-avatar">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/2603600/f8a845787f2b56752f806762822cb918ff18935b.gif" 
+                         alt="Macha" 
+                         class="admin-avatar">
                     <h3>Macha</h3>
                     <p>Właściciel serwera</p>
                     <a href="https://steamcommunity.com/id/Machaxx21212/" class="steam-link" target="_blank">
@@ -155,13 +207,21 @@
                 </div>
 
                 <div class="admin-card">
-                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/493520/8bdddcd5524d510b01a759feaafe2e7761b1efc8.gif" alt="Noxy" class="admin-avatar">
+                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/2603600/f8a845787f2b56752f806762822cb918ff18935b.gif" 
+                         alt="Noxy" 
+                         class="admin-avatar">
                     <h3>Noxy</h3>
                     <p>Naczelny cfel serwera</p>
                     <a href="https://steamcommunity.com/profiles/76561199402720515" class="steam-link" target="_blank">
                         <i class="fab fa-steam"></i> Profil Steam
                     </a>
                 </div>
+            </div>
+        </div>
+
+        <div id="regulamin" class="tab-content">
+            <div class="regulamin-content">
+                CHYBA CIE POJEBAŁO KOLEGO
             </div>
         </div>
     </div>
@@ -181,6 +241,82 @@
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
         }
+
+        const canvas = document.getElementById('pongCanvas');
+        const ctx = canvas.getContext('2d');
+        const leftScoreElement = document.getElementById('leftScore');
+        const rightScoreElement = document.getElementById('rightScore');
+
+        let playerY = 160;
+        let computerY = 160;
+        let ballX = 400;
+        let ballY = 200;
+        let ballSpeedX = 5;
+        let ballSpeedY = 5;
+        let leftScore = 0;
+        let rightScore = 0;
+        const PADDLE_HEIGHT = 80;
+        const PADDLE_WIDTH = 10;
+
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            playerY = e.clientY - rect.top - PADDLE_HEIGHT/2;
+        });
+
+        function gameLoop() {
+            ballX += ballSpeedX;
+            ballY += ballSpeedY;
+
+            if(ballY < 0 || ballY > 400) ballSpeedY = -ballSpeedY;
+
+            if(ballX < PADDLE_WIDTH && 
+               ballY > playerY && 
+               ballY < playerY + PADDLE_HEIGHT) {
+                ballSpeedX = -ballSpeedX;
+            }
+
+            if(ballX > 800 - PADDLE_WIDTH && 
+               ballY > computerY && 
+               ballY < computerY + PADDLE_HEIGHT) {
+                ballSpeedX = -ballSpeedX;
+            }
+
+            if(ballX < 0) {
+                rightScore++;
+                resetBall();
+            }
+            if(ballX > 800) {
+                leftScore++;
+                resetBall();
+            }
+
+            computerY += (ballY - (computerY + PADDLE_HEIGHT/2)) * 0.1;
+
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, 800, 400);
+
+            ctx.fillStyle = '#4CAF50';
+            ctx.fillRect(0, playerY, PADDLE_WIDTH, PADDLE_HEIGHT);
+            ctx.fillRect(800 - PADDLE_WIDTH, computerY, PADDLE_WIDTH, PADDLE_HEIGHT);
+
+            ctx.beginPath();
+            ctx.arc(ballX, ballY, 8, 0, Math.PI*2);
+            ctx.fill();
+
+            leftScoreElement.textContent = leftScore;
+            rightScoreElement.textContent = rightScore;
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        function resetBall() {
+            ballX = 400;
+            ballY = 200;
+            ballSpeedX = -ballSpeedX;
+            ballSpeedY = Math.random() * 10 - 5;
+        }
+
+        gameLoop();
     </script>
 </body>
 </html>
