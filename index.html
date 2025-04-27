@@ -1,207 +1,170 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <title>PedalinoRDM</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            margin: 0;
-            background-color: #111;
-            color: #eee;
-            font-family: Arial, sans-serif;
-        }
-        header {
-            text-align: center;
-            padding: 20px;
-            background-color: #222;
-        }
-        header img {
-            width: 665px;
-            height: 116px;
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: #222;
-            padding: 10px;
-        }
-        nav a {
-            color: #eee;
-            text-decoration: none;
-            margin: 0 15px;
-            padding: 8px 12px;
-            transition: color 0.3s, background-color 0.3s;
-            border-radius: 4px;
-        }
-        nav a:hover {
-            color: #000;
-            background-color: #0af;
-        }
-        .buttons {
-            text-align: center;
-            margin: 20px 0;
-        }
-        .btn {
-            display: inline-block;
-            background-color: #333;
-            color: #fff;
-            border: 2px solid #0af;
-            padding: 10px 20px;
-            margin: 5px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 1em;
-        }
-        .btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 8px #0af;
-        }
-        .btn.discord {
-            background-color: #5865f2;
-            border-color: #5865f2;
-        }
-        .btn.discord:hover {
-            box-shadow: 0 0 8px #7289da;
-        }
-        section {
-            margin: 20px 0;
-        }
-        #game {
-            display: block;
-            margin: 0 auto;
-            background-color: #222;
-            max-width: 100%;
-            height: auto;
-        }
-        #admins .admin-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-        #admins .admin {
-            background-color: #222;
-            border: 1px solid #444;
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-            max-width: 200px;
-        }
-        #admins img {
-            border-radius: 50%;
-            width: 100px;
-            height: 100px;
-        }
-        #admins a {
-            color: #0af;
-        }
-        #rules {
-            background-color: #222;
-            padding: 15px;
-            text-align: center;
-            font-size: 1.2em;
-            border-radius: 8px;
-        }
-        @media (max-width: 600px) {
-            nav { flex-direction: column; }
-            .btn { width: 100%; margin: 10px 0; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>PedalinoRDM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      background-color: #111;
+      color: #eee;
+      font-family: Arial, sans-serif;
+    }
+    header {
+      text-align: center;
+      padding: 20px;
+      background-color: #222;
+    }
+    header img {
+      width: 665px;
+      height: 116px;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      background-color: #222;
+    }
+    .tabs button {
+      background: none;
+      border: none;
+      color: #eee;
+      padding: 12px 20px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s;
+    }
+    .tabs button.active,
+    .tabs button:hover {
+      background-color: #0af;
+      color: #000;
+    }
+    .buttons {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #333;
+      color: #fff;
+      border: 2px solid #0af;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 1em;
+    }
+    .btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 8px #0af;
+    }
+    .btn.discord {
+      background-color: #5865f2;
+      border-color: #5865f2;
+    }
+    .btn.discord:hover {
+      box-shadow: 0 0 8px #7289da;
+    }
+    section {
+      display: none;
+      padding: 20px;
+    }
+    section.active {
+      display: block;
+    }
+    #admins .admin-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    #admins .admin {
+      background-color: #222;
+      border: 1px solid #444;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      max-width: 200px;
+    }
+    #admins img {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+    }
+    #admins a {
+      color: #0af;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    #rules {
+      background-color: #222;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.2em;
+      border-radius: 8px;
+    }
+    @media (max-width: 600px) {
+      .tabs { flex-direction: column; }
+      .btn { width: 100%; margin: 10px 0; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <img src="Logo.gif" alt="Logo PedalinoRDM">
-    </header>
-    <nav>
-        <a href="#home">Strona główna</a>
-        <a href="#admins">Administratorzy</a>
-        <a href="#rules">Regulamin</a>
-    </nav>
-    <div class="buttons">
-        <a class="btn server-btn" href="steam://connect/pl1.mathost.eu:23196">Dołącz do serwera</a>
-        <a class="btn discord" href="https://discord.gg/2fhQAfkk">Dołącz do Discorda</a>
+  <header>
+    <img src="Logo.gif" alt="Logo PedalinoRDM">
+  </header>
+
+  <!-- zakładki -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="home">Strona główna</button>
+    <button class="tab-btn" data-tab="rules">Regulamin</button>
+  </div>
+
+  <!-- przyciski dołączeń -->
+  <div class="buttons">
+    <a class="btn server-btn" href="steam://connect/pl1.mathost.eu:23196">Dołącz do serwera</a>
+    <a class="btn discord" href="https://discord.gg/2fhQAfkk">Dołącz do Discorda</a>
+  </div>
+
+  <!-- Strona główna (z adminami) -->
+  <section id="home" class="active">
+    <h2>Administratorzy</h2>
+    <div class="admin-list">
+      <div class="admin">
+        <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/2603600/f8a845787f2b56752f806762822cb918ff18935b.gif" alt="Avatar Macha">
+        <p>
+          <a href="https://steamcommunity.com/id/Machaxx21212/" target="_blank">Macha</a><br>
+          <em>Właściciel</em>
+        </p>
+      </div>
+      <div class="admin">
+        <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/493520/8bdddcd5524d510b01a759feaafe2e7761b1efc8.gif" alt="Avatar Noxy">
+        <p>
+          <a href="https://steamcommunity.com/profiles/76561199402720515" target="_blank">Noxy</a><br>
+          <em>Naczelny cfel serwera</em>
+        </p>
+      </div>
     </div>
-    <main>
-        <section id="home">
-            <h2>Strona główna</h2>
-            <canvas id="game" width="300" height="300"></canvas>
-            <script>
-            (function() {
-                var canvas = document.getElementById('game');
-                var context = canvas.getContext('2d');
-                var grid = 16, count = 0;
-                var snake = { x: 160, y: 160, dx: grid, dy: 0, cells: [], maxCells: 4 };
-                var apple = { x: 320, y: 320 };
-                function getRandomInt(min, max) {
-                    return Math.floor(Math.random() * (max - min)) + min;
-                }
-                function loop() {
-                    requestAnimationFrame(loop);
-                    if (++count < 4) return;
-                    count = 0;
-                    context.clearRect(0,0,canvas.width,canvas.height);
-                    snake.x += snake.dx;
-                    snake.y += snake.dy;
-                    if (snake.x < 0) { snake.x = canvas.width - grid; }
-                    else if (snake.x >= canvas.width) { snake.x = 0; }
-                    if (snake.y < 0) { snake.y = canvas.height - grid; }
-                    else if (snake.y >= canvas.height) { snake.y = 0; }
-                    snake.cells.unshift({x: snake.x, y: snake.y});
-                    if (snake.cells.length > snake.maxCells) { snake.cells.pop(); }
-                    context.fillStyle = 'red';
-                    context.fillRect(apple.x, apple.y, grid-1, grid-1);
-                    context.fillStyle = 'lime';
-                    snake.cells.forEach(function(cell, index) {
-                        context.fillRect(cell.x, cell.y, grid-1, grid-1);
-                        if (cell.x === apple.x && cell.y === apple.y) {
-                            snake.maxCells++;
-                            apple.x = getRandomInt(0, 25) * grid;
-                            apple.y = getRandomInt(0, 25) * grid;
-                        }
-                        for (var i = index + 1; i < snake.cells.length; i++) {
-                            if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
-                                snake.x = 160; snake.y = 160;
-                                snake.cells = []; snake.maxCells = 4;
-                                snake.dx = grid; snake.dy = 0;
-                                apple.x = getRandomInt(0, 25) * grid;
-                                apple.y = getRandomInt(0, 25) * grid;
-                            }
-                        }
-                    });
-                }
-                document.addEventListener('keydown', function(e) {
-                    if (e.which === 37 && snake.dx === 0) { snake.dx = -grid; snake.dy = 0; }
-                    else if (e.which === 38 && snake.dy === 0) { snake.dy = -grid; snake.dx = 0; }
-                    else if (e.which === 39 && snake.dx === 0) { snake.dx = grid; snake.dy = 0; }
-                    else if (e.which === 40 && snake.dy === 0) { snake.dy = grid; snake.dx = 0; }
-                });
-                requestAnimationFrame(loop);
-            })();
-            </script>
-        </section>
-        <section id="admins">
-            <h2>Administratorzy</h2>
-            <div class="admin-list">
-                <div class="admin">
-                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/2603600/f8a845787f2b56752f806762822cb918ff18935b.gif" alt="Avatar Macha">
-                    <p><strong>Macha</strong><br><em>Właściciel</em><br>
-                    <a href="https://steamcommunity.com/id/Machaxx21212/">Profil Steam</a></p>
-                </div>
-                <div class="admin">
-                    <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/493520/8bdddcd5524d510b01a759feaafe2e7761b1efc8.gif" alt="Avatar Noxy">
-                    <p><strong>Noxy</strong><br><em>Naczelny cfel serwera</em><br>
-                    <a href="https://steamcommunity.com/profiles/76561199402720515">Profil Steam</a></p>
-                </div>
-            </div>
-        </section>
-        <section id="rules">
-            <h2>Regulamin</h2>
-            <p>Chyba cię pojebało kolego</p>
-        </section>
-    </main>
+  </section>
+
+  <!-- Regulamin -->
+  <section id="rules">
+    <h2>Regulamin</h2>
+    <p>Chyba cię pojebało kolego</p>
+  </section>
+
+  <script>
+    // Obsługa zakładek
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>
-
