@@ -74,13 +74,14 @@
     section.active {
       display: block;
     }
-    #admins .admin-list {
+    .admin-list {
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
       justify-content: center;
+      margin-top: 20px;
     }
-    #admins .admin {
+    .admin {
       background-color: #222;
       border: 1px solid #444;
       padding: 10px;
@@ -88,15 +89,14 @@
       text-align: center;
       max-width: 200px;
     }
-    #admins img {
+    .admin img {
       border-radius: 50%;
       width: 100px;
       height: 100px;
     }
-    #admins a {
+    .admin a {
       color: #0af;
       text-decoration: none;
-      font-weight: bold;
     }
     #rules {
       background-color: #222;
@@ -122,41 +122,35 @@
     <button class="tab-btn" data-tab="rules">Regulamin</button>
   </div>
 
-  <!-- przyciski dołączeń -->
+  <!-- przyciski dołączenia -->
   <div class="buttons">
     <a class="btn server-btn" href="steam://connect/pl1.mathost.eu:23196">Dołącz do serwera</a>
     <a class="btn discord" href="https://discord.gg/2fhQAfkk">Dołącz do Discorda</a>
   </div>
 
-  <!-- Strona główna (z adminami) -->
+  <!-- panele treści -->
   <section id="home" class="active">
-    <h2>Administratorzy</h2>
+    <h2>Strona główna</h2>
+    <h3>Administratorzy</h3>
     <div class="admin-list">
       <div class="admin">
         <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/2603600/f8a845787f2b56752f806762822cb918ff18935b.gif" alt="Avatar Macha">
-        <p>
-          <a href="https://steamcommunity.com/id/Machaxx21212/" target="_blank">Macha</a><br>
-          <em>Właściciel</em>
-        </p>
+        <p><a href="https://steamcommunity.com/id/Machaxx21212/"><strong>Macha</strong></a><br><em>Właściciel</em></p>
       </div>
       <div class="admin">
         <img src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/493520/8bdddcd5524d510b01a759feaafe2e7761b1efc8.gif" alt="Avatar Noxy">
-        <p>
-          <a href="https://steamcommunity.com/profiles/76561199402720515" target="_blank">Noxy</a><br>
-          <em>Naczelny cfel serwera</em>
-        </p>
+        <p><a href="https://steamcommunity.com/profiles/76561199402720515"><strong>Noxy</strong></a><br><em>Naczelny cfel serwera</em></p>
       </div>
     </div>
   </section>
 
-  <!-- Regulamin -->
   <section id="rules">
     <h2>Regulamin</h2>
     <p>Chyba cię pojebało kolego</p>
   </section>
 
+  <!-- skrypt obsługi zakładek -->
   <script>
-    // Obsługa zakładek
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
